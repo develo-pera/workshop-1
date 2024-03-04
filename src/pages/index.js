@@ -3,13 +3,13 @@ import { Button } from "@/components/ui/button";
 import Head from "next/head";
 import SwapTab from "@/components/SwapTab";
 import LendTab from "@/components/LendTab";
-import { useAccount, useConnect, useEnsName } from "wagmi";
+import { useAccount, useConnect } from "wagmi";
 import { injected } from "wagmi/connectors";
+import { reduceString } from "@/lib/helpers";
 
 export default function Home() {
   const { connect, connectors } = useConnect();
   const { address: walletAddress, isConnected } = useAccount();
-  const { data: ensName } = useEnsName({ address: walletAddress });
 
   return (
     <main>
@@ -20,7 +20,7 @@ export default function Home() {
         <p className="font-bold text-2xl text-gray-600">Shell Integrateooor</p>
         {
           walletAddress ?
-            <p>{walletAddress}</p> :
+            <p>{reduceString(walletAddress, 6, 4)}</p> :
             <Button onClick={() => connect({ connector: injected() })}>Connect</Button>
         }
       </div>
