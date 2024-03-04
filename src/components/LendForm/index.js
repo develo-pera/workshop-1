@@ -13,3 +13,5 @@ const LendForm = () => (
     <Button size="lg" className="w-full mt-5">Lend</Button>
   </div>
 );
+
+export default LendForm;

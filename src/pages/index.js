@@ -3,8 +3,14 @@ import { Button } from "@/components/ui/button";
 import Head from "next/head";
 import SwapTab from "@/components/SwapTab";
 import LendTab from "@/components/LendTab";
+import { useAccount, useConnect, useEnsName } from "wagmi";
+import { injected } from "wagmi/connectors";
 
 export default function Home() {
+  const { connect, connectors } = useConnect();
+  const { address: walletAddress, isConnected } = useAccount();
+  const { data: ensName } = useEnsName({ address: walletAddress });
+
   return (
     <main>
       <Head>
@@ -12,7 +18,11 @@ export default function Home() {
       </Head>
       <div className="max-w-2xl mx-auto py-10 flex items-center justify-between">
         <p className="font-bold text-2xl text-gray-600">Shell Integrateooor</p>
-        <Button>Connect</Button>
+        {
+          walletAddress ?
+            <p>{walletAddress}</p> :
+            <Button onClick={() => connect({ connector: injected() })}>Connect</Button>
+        }
       </div>
       <div className="max-w-2xl mx-auto">
         <Tabs defaultValue="swap">

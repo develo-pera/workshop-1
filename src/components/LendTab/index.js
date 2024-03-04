@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import LendForm from "@/components/LendForm";
 
 const LendTab = () => (
   <Card className="mt-10">
